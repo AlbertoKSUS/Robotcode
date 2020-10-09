@@ -11,6 +11,7 @@ import robocode.ScannedRobotEvent;
 
 /**
  *
+ *
  * @author alpez
  */
 public class Terminator extends AdvancedRobot{
