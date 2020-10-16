@@ -27,7 +27,7 @@ public class Terminator extends AdvancedRobot{
             System.out.println("Q1");
             double gir = 360 - getHeading();
             turnRight(gir);
-            ahead(y - getY()- (Math.random()*50+20 ));
+            ahead(Math.random()* (y - getY())+ 20 );
 
             //execute();
         }
@@ -36,7 +36,7 @@ public class Terminator extends AdvancedRobot{
             System.out.println("Q3");
             double gir = 135 - getHeading();
             turnRight(gir);
-            ahead(sqrt(((x-getX())*(x-getX())) + ((y-getY())*(y-getY())))- (Math.random()*50+20 ));
+            ahead(Math.random()*sqrt(((x-getX())*(x-getX())) + (getY()* getY()))+20);
 
 
             //execute();
@@ -45,7 +45,7 @@ public class Terminator extends AdvancedRobot{
             System.out.println("Q4");
             double gir = 225 - getHeading();
             turnRight(gir);
-            ahead(sqrt(((x-getX())*(x-getX())) + ((y-getY())*(y-getY())))- (Math.random()*50+20 ) );
+            ahead(Math.random()*sqrt((getX()*getX()) + (getY()* getY()))+20);
 
             //execute();
         }
