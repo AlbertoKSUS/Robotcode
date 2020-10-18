@@ -24,20 +24,20 @@ public class Terminator2 extends AdvancedRobot{
         setGunColor(c);
         setScanColor(c);
         setBulletColor(Color.RED); 
-        
+        //nomes mantenin el radar, ja que s'apropa amb la f cercarse
         turnRadarRight(Double.POSITIVE_INFINITY);
     }
     
     public void onScannedRobot(ScannedRobotEvent e) {
         setTurnRadarLeft(getRadarTurnRemaining());
-        if (e.getDistance() > 250) cercarse(e);
+        if (e.getDistance() > 250) cercarse(e); //s'aproxima al robot
         else girar(e);
     }    
     public void cercarse(ScannedRobotEvent e) {
         apunta(e);
         setTurnRight(e.getBearing());
         setAhead(e.getDistance() - 150); // Queda 150 de l'enimic
-        if (e.getDistance() < 350) setFire(3);
+        if (e.getDistance() < 350) setFire(3); // Si està a menys de 350 de l'enemic dispara
     }
     
     public void apunta(ScannedRobotEvent e) {
@@ -46,6 +46,7 @@ public class Terminator2 extends AdvancedRobot{
         double girGun = Utils.normalRelativeAngleDegrees(angle);
         setTurnGunRight(girGun);
     }
+    //dona voultes sobre el robot
     public void girar(ScannedRobotEvent e) {
         setTurnLeft(-90-e.getBearing());
         apunta(e);
