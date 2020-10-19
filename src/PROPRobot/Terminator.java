@@ -5,62 +5,54 @@
  */
 package PROPRobot;
 
-import static java.lang.Math.sqrt;
+import java.awt.Color;
 import robocode.AdvancedRobot;
-import robocode.HitByBulletEvent;
+import static robocode.Rules.MAX_BULLET_POWER;
+import robocode.util.Utils;
 import robocode.ScannedRobotEvent;
 
 /**
  *
- *
- * @author alpez
+ * @author Alberto, Pedro
  */
 public class Terminator extends AdvancedRobot{
-    
+    @Override
     public void run(){
-       double x = getBattleFieldWidth();
-       double y = getBattleFieldHeight();
-        System.out.println("=>"+ x +"=>"+ y);
-       while(true){
-        //turnLeft(getHeading());
-        while(((getX()<= x/2) && (getY()<= y/2)) ||((getX()>= (x/2) && (getY()<= y/2)))){
-            System.out.println("Q1");
-            double gir = 360 - getHeading();
-            turnRight(gir);
-            ahead(Math.random()* (y - getY())+ 20 );
-
-            //execute();
-        }
-
-        while((getX()<= x/2) && (getY()>= y/2)){
-            System.out.println("Q3");
-            double gir = 135 - getHeading();
-            turnRight(gir);
-            ahead(Math.random()*sqrt(((x-getX())*(x-getX())) + (getY()* getY()))+20);
-
-
-            //execute();
-        }
-        while((getX()>= x/2 ) && (getY()>= y/2) ){
-            System.out.println("Q4");
-            double gir = 225 - getHeading();
-            turnRight(gir);
-            ahead(Math.random()*sqrt((getX()*getX()) + (getY()* getY()))+20);
-
-            //execute();
-        }
-        /*System.out.println("Q0");
-        double gir = 225 - getHeading();
-        turnRight(gir);
-        ahead(sqrt(y*y + x*x));*/
-       }
-       //execute();
-
+        //Canvien el color del robot
+        Color c = new Color(150, 0, 150);
+        setBodyColor(c);
+        setGunColor(c);
+        setScanColor(c);
+        setBulletColor(Color.RED); 
+        //nomes mantenin el radar, ja que s'apropa amb la f cercarse
+        turnRadarRight(Double.POSITIVE_INFINITY);
     }
-    public void onScannedRobot(ScannedRobotEvent e){
-        //fire(1);
+    
+    @Override
+    public void onScannedRobot(ScannedRobotEvent e) {
+        setTurnRadarLeft(getRadarTurnRemaining());
+        if (e.getDistance() > 250) acercarse(e); //s'aproxima al robot
+        else girar(e);
+    }    
+    public void acercarse(ScannedRobotEvent e) {
+        apunta(e);
+        setTurnRight(e.getBearing());
+        setAhead(e.getDistance() - 150); // Queda 150 de l'enemic
+        if (e.getDistance() < 350) setFire(MAX_BULLET_POWER); // Si està a menys de 350 de l'enemic dispara
     }
-    public void inHitByBullet (HitByBulletEvent e){
-       // turnLeft(180);
+    
+    public void apunta(ScannedRobotEvent e) {
+        double angle = e.getBearing() + getHeading() - getGunHeading() +(e.getVelocity()*3);
+        //Utilitzem el metode utils per a normalitzar els graus
+        double girGun = Utils.normalRelativeAngleDegrees(angle);
+        setTurnGunRight(girGun);
     }
+    //dona voltes sobre el robot
+    public void girar(ScannedRobotEvent e) {
+        setTurnLeft(-90-e.getBearing());
+        apunta(e);
+        setAhead(e.getDistance() -150);
+        setFire(MAX_BULLET_POWER);        
+    }
+    
 }
