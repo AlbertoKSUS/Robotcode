@@ -55,7 +55,7 @@ public class Terminator extends AdvancedRobot{
      * @param e Robot enemic detectat
      **/
     public void apunta(ScannedRobotEvent e) {
-        double angle = e.getBearing() + getHeading() - getGunHeading() +(e.getVelocity()*3);
+        double angle = e.getBearing() + getHeading() - getGunHeading() +(e.getVelocity()*4);
         //Utilitzem el metode utils per a normalitzar els graus
         double girGun = Utils.normalRelativeAngleDegrees(angle);
         setTurnGunRight(girGun);
