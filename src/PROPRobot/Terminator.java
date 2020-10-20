@@ -41,7 +41,8 @@ public class Terminator extends AdvancedRobot{
         else girar(e);
     }
     /**
-     * Aquest métode apropa a Terminator a una distancia de 150 del enemic i  comença a disparar a una distancia < 350 
+     * Aquest métode apropa a Terminator a una distancia de 150 del enemic i 
+     * comença a disparar a una distancia < 350 
      * @param e Robot enemic detectat
      **/
     public void acercarse(ScannedRobotEvent e) {
@@ -61,7 +62,8 @@ public class Terminator extends AdvancedRobot{
         setTurnGunRight(girGun);
     }
     /**
-     * Aquest métode gira al voltant de l'enemic a una distancia > 150 del enemic i disparant
+     * Aquest métode gira al voltant de l'enemic a una distancia superior de 150
+     * del enemic i disparant
      * @param e Robot enemic detectat
      **/
     public void girar(ScannedRobotEvent e) {
