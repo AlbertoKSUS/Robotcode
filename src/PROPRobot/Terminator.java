@@ -42,7 +42,7 @@ public class Terminator extends AdvancedRobot{
     }
     /**
      * Aquest métode apropa a Terminator a una distancia de 150 del enemic i 
-     * comença a disparar a una distancia < 350 
+     * comença a disparar a una distancia inferior de 350 
      * @param e Robot enemic detectat
      **/
     public void acercarse(ScannedRobotEvent e) {
